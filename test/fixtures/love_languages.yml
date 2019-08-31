@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gifts_rank: 1
+  gifts_example: MyText
+  time_rank: 1
+  time_example: MyText
+  affirmation_rank: 1
+  affirmation_example: MyText
+  service_rank: 1
+  service_example: MyText
+  touch_rank: 1
+  touch_example: MyText
+
+two:
+  gifts_rank: 1
+  gifts_example: MyText
+  time_rank: 1
+  time_example: MyText
+  affirmation_rank: 1
+  affirmation_example: MyText
+  service_rank: 1
+  service_example: MyText
+  touch_rank: 1
+  touch_example: MyText

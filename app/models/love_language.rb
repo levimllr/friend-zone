@@ -1,0 +1,2 @@
+class LoveLanguage < ApplicationRecord
+end
