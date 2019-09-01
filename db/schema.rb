@@ -26,11 +26,10 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
     t.text "touch_example"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["person_id"], name: "index_love_languages_on_person_id"
   end
 
   create_table "meetings", force: :cascade do |t|
-    t.string "type"
+    t.string "meeting_type"
     t.datetime "when"
     t.string "location"
     t.integer "friend_id"
@@ -41,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
   create_table "notes", force: :cascade do |t|
     t.integer "person_id"
     t.integer "friend_id"
-    t.integer "person_meeting_id"
+    t.integer "people_meeting_id"
     t.string "title"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
@@ -56,7 +55,6 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
     t.date "birthday"
     t.string "email"
     t.integer "phone_number"
-    t.integer "love_language_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

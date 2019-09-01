@@ -9,8 +9,6 @@ class CreatePeople < ActiveRecord::Migration[6.0]
       t.date :birthday
       t.string :email
       t.integer :phone_number
-
-      t.integer :love_language_id
       
       t.timestamps
     end

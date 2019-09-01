@@ -1,7 +1,7 @@
 class CreateLoveLanguages < ActiveRecord::Migration[6.0]
   def change
     create_table :love_languages do |t|
-      t.belongs_to :person
+      t.integer :person_id
 
       t.integer :gifts_rank
       t.text :gifts_example

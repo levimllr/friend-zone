@@ -71,6 +71,8 @@ end
     love_language_rank = [1, 2, 3, 4, 5].shuffle
 
     newperson.love_language = LoveLanguage.create(gifts_rank: love_language_rank[0], gifts_example: gift_examples[love_language_rank[0] - 1], time_rank: love_language_rank[1], time_example: time_examples[love_language_rank[1] - 1], affirmation_rank: love_language_rank[2], affirmation_example: aff_examples[love_language_rank[2] - 1], service_rank: love_language_rank[3], service_example: serv_examples[love_language_rank[2] - 1], touch_rank: love_language_rank[4], touch_example: touch_examples[love_language_rank[4] - 1])
+
+    newperson.save
 end
 
 numpeople = Person.all.length
@@ -85,7 +87,7 @@ rand(150..350).times do
         befriendee = Person.all[rand(0...numpeople)]
     end
     if !befriender.befriendees.include?(befriendee)
-        Relationship.create(befriender_id: befriender.id, befriendee_id: befriendee.id, reln_type: relationship_types[rand(0...num_types)], start: start_date)
+        Relationship.create(befriender_id: befriender.id, befriendee_id: befriendee.id, reln_type: relationship_types[rand(0...num_reln_types)], start: start_date)
     end
 end
 
@@ -96,10 +98,10 @@ rand(150..350).times do
         friend = Person.all[rand(0...numpeople)]
     end
 
-    person.meetings << Meeting.create(when: rand(Date.civil(2014, 1, 1)..Date.today), location: Faker::Address.community, type: meeting_types[rand(0...num_meeting_types)], friend_id: friend.id)
+    person.meetings << Meeting.create(when: rand(Date.civil(2014, 1, 1)..Date.today), location: Faker::Address.community, meeting_type: meeting_types[rand(0...num_meet_types)], friend_id: friend.id)
 
-    PersonMeeting.last.feeling = Faker::Hipster.word
-    PersonMeeting.last.descr = Faker::Hipster.sentence
+    PeopleMeeting.last.feeling = Faker::Hipster.word
+    PeopleMeeting.last.description = Faker::Hipster.sentence
 end
 
 nummeeting = Meeting.all.length
@@ -114,9 +116,10 @@ rand(150..350).times do
             friend = Person.all[rand(0...numpeople)]
         end
         friend_note_title = friend.first_name + Faker::Lorem.word
-        person.notes << Notes.create(friend_id: friend.id, title: friend_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
+        person.notes << Note.create(friend_id: friend.id, title: friend_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
     elsif note_or_meeting_selector == 2
-        meeting = Meeting.all[rand(0...nummeeting)]
-        meeting_note_title = meeting.location + Faker::Lorem.word
-        person.notes << Notes.create(meeting_id: meeting.id, title: meeting_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
+        people_meeting = PeopleMeeting.all[rand(0...nummeeting)]
+        meeting_note_title = people_meeting.meeting.location + Faker::Lorem.word
+        person.notes << Note.create(people_meeting_id: people_meeting.id, title: meeting_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
     end
+end

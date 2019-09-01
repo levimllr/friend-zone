@@ -1,4 +1,4 @@
-class Relationship < ApplicationRecord
+class PeopleMeeting < ApplicationRecord
     belongs_to :person
     belongs_to :meeting
 end
