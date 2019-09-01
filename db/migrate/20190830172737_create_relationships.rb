@@ -5,6 +5,7 @@ class CreateRelationships < ActiveRecord::Migration[6.0]
       t.integer :befriendee_id
       t.string :reln_type
       t.date :start
+      t.string :quality
     end
   end
 end

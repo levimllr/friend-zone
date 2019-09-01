@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
     t.integer "befriendee_id"
     t.string "reln_type"
     t.date "start"
+    t.string "quality"
   end
 
 end
