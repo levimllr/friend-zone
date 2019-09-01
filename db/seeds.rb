@@ -72,7 +72,7 @@ end
     phonenumber = Faker::PhoneNumber.phone_number.scan(/\d/).join('').to_i
     birthday = rand(Date.civil(1920, 1, 1)..Date.civil(2001, 06, 22)).to_date
 
-    newperson = Person.create(first_name: firstname, last_name: lastname, birthday: birthday, email: Faker::Internet.safe_email(name: firstname), phone_number: phonenumber)
+    newperson = Person.create(username: "nu" + "firstname", password: "lastname" + "nu", first_name: firstname, last_name: lastname, birthday: birthday, email: Faker::Internet.safe_email(name: firstname), phone_number: phonenumber)
 
     love_language_rank = [1, 2, 3, 4, 5].shuffle
 

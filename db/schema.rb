@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_30_182335) do
+ActiveRecord::Schema.define(version: 2019_09_01_175451) do
 
   create_table "love_languages", force: :cascade do |t|
     t.integer "person_id"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
 
   create_table "people", force: :cascade do |t|
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
     t.date "birthday"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
     t.integer "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_people_on_email", unique: true
   end
 
   create_table "people_meetings", force: :cascade do |t|
