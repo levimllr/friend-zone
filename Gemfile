@@ -37,12 +37,13 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-
+# Facilitate Javascript asset pipeline
 gem 'uglifier'
-
 gem 'jquery-rails'
-
 gem 'coffee-rails'
+
+# Use assert_template in tests
+gem 'rails-controller-testing'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
