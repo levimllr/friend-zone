@@ -42,9 +42,10 @@ touch_5 = 'Don\'t touch me.'
 touch_examples = [touch_1, touch_2, touch_3, touch_4, touch_5]
 
 relationship_types = ['family', 'best friend', 'friend', 'acquaintance', 'professional', 'intimate', 'mentor', 'neighbor']
-    num_types = relationship_types.length
+num_reln_types = relationship_types.length
 
 meeting_types = ['1:1 hangout', 'group get-together', 'event', 'voice call', 'video call', 'text chat', 'email', 'letter']
+num_meet_types = meeting_types.length
 
 10.times do
     firstname = Faker::Name.first_name
@@ -74,7 +75,7 @@ end
 
 numpeople = Person.all.length
 
-250.times do
+rand(150..350).times do
     befriender = Person.all[rand(0...numpeople)]
     befriendee = Person.all[rand(0...numpeople)]
 
@@ -88,12 +89,34 @@ numpeople = Person.all.length
     end
 end
 
-250.times do
+rand(150..350).times do
     person = Person.all[rand(0...numpeople)]
     friend = Person.all[rand(0...numpeople)]
     if friend == person
         friend = Person.all[rand(0...numpeople)]
     end
 
-    person.meetings << Meeting.create(location:
+    person.meetings << Meeting.create(when: rand(Date.civil(2014, 1, 1)..Date.today), location: Faker::Address.community, type: meeting_types[rand(0...num_meeting_types)], friend_id: friend.id)
+
+    PersonMeeting.last.feeling = Faker::Hipster.word
+    PersonMeeting.last.descr = Faker::Hipster.sentence
 end
+
+nummeeting = Meeting.all.length
+
+rand(150..350).times do
+    person = Person.all[rand(0...numpeople)]
+
+    note_or_meeting_selector = rand(1..2)
+    if note_or_meeting_selector == 1
+        friend = Person.all[rand(0...numpeople)]
+        if friend == person
+            friend = Person.all[rand(0...numpeople)]
+        end
+        friend_note_title = friend.first_name + Faker::Lorem.word
+        person.notes << Notes.create(friend_id: friend.id, title: friend_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
+    elsif note_or_meeting_selector == 2
+        meeting = Meeting.all[rand(0...nummeeting)]
+        meeting_note_title = meeting.location + Faker::Lorem.word
+        person.notes << Notes.create(meeting_id: meeting.id, title: meeting_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
+    end
