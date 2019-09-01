@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# FILLER MATERIAL
+
 gift_1 = 'I expect an offering! What better way to show someone you value them than with something of value?'
 gift_2 = 'I really like it when someone brings me a meaningful gift.'
 gift_3 = 'Gifts are nice.'
@@ -47,6 +49,8 @@ num_reln_types = relationship_types.length
 meeting_types = ['1:1 hangout', 'group get-together', 'event', 'voice call', 'video call', 'text chat', 'email', 'letter']
 num_meet_types = meeting_types.length
 
+# GENERATE PEOPLE WITH ACCOUNTS
+
 10.times do
     firstname = Faker::Name.first_name
     lastname = Faker::Name.last_name
@@ -59,6 +63,8 @@ num_meet_types = meeting_types.length
 
     newperson.love_language = LoveLanguage.create(gifts_rank: love_language_rank[0], gifts_example: gift_examples[love_language_rank[0] - 1], time_rank: love_language_rank[1], time_example: time_examples[love_language_rank[1] - 1], affirmation_rank: love_language_rank[2], affirmation_example: aff_examples[love_language_rank[2] - 1], service_rank: love_language_rank[3], service_example: serv_examples[love_language_rank[2] - 1], touch_rank: love_language_rank[4], touch_example: touch_examples[love_language_rank[4] - 1])
 end
+
+# GENERATE PEOPLE WITHOUT ACCOUNTS
 
 40.times do
     firstname = Faker::Name.first_name
@@ -77,6 +83,8 @@ end
 
 numpeople = Person.all.length
 
+# GENERATE RELATIONSHIPS
+
 rand(150..350).times do
     befriender = Person.all[rand(0...numpeople)]
     befriendee = Person.all[rand(0...numpeople)]
@@ -91,20 +99,35 @@ rand(150..350).times do
     end
 end
 
+# GENERATE MEETINGS
+
 rand(150..350).times do
     person = Person.all[rand(0...numpeople)]
-    friend = Person.all[rand(0...numpeople)]
-    if friend == person
+
+    new_meeting = Meeting.create(when: rand(Date.civil(2014, 1, 1)..Date.today), location: Faker::Address.community, meeting_type: meeting_types[rand(0...num_meet_types)])
+
+    person.meetings << new_meeting
+    person_new_people_meeting = PeopleMeeting.last
+    person_new_people_meeting.feeling = Faker::Hipster.word
+    person_new_people_meeting.description = Faker::Hipster.sentence
+    person_new_people_meeting.save
+
+    rand(1..5).times do
         friend = Person.all[rand(0...numpeople)]
+        if friend == person
+            friend = Person.all[rand(0...numpeople)]
+        end
+        friend.meetings << new_meeting
+        friend_new_people_meeting = PeopleMeeting.last
+        friend_new_people_meeting.feeling = Faker::Hipster.word
+        friend_new_people_meeting.description = Faker::Hipster.sentence
+        friend_new_people_meeting.save
     end
-
-    person.meetings << Meeting.create(when: rand(Date.civil(2014, 1, 1)..Date.today), location: Faker::Address.community, meeting_type: meeting_types[rand(0...num_meet_types)], friend_id: friend.id)
-
-    PeopleMeeting.last.feeling = Faker::Hipster.word
-    PeopleMeeting.last.description = Faker::Hipster.sentence
 end
 
 nummeeting = Meeting.all.length
+
+# GENERATE NOTES
 
 rand(150..350).times do
     person = Person.all[rand(0...numpeople)]

@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2019_08_30_182335) do
     t.string "meeting_type"
     t.datetime "when"
     t.string "location"
-    t.integer "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
