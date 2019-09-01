@@ -3,6 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
 
+# For?
+gem "webpacker"
+# For CSS styling
+# gem 'bootstrap'
+gem 'bootstrap-sass'
+# For bootstrap support
+gem 'sprockets-rails'
 # For database seeding
 gem 'faker'
 # For password security
@@ -29,6 +36,13 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+
+
+gem 'uglifier'
+
+gem 'jquery-rails'
+
+gem 'coffee-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
