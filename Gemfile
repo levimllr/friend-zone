@@ -37,6 +37,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Randomly generate avatars based on hashes (identicons)
+gem 'ruby_identicon'
+
 # Facilitate Javascript asset pipeline
 gem 'uglifier'
 gem 'jquery-rails'

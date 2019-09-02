@@ -1,0 +1,11 @@
+<% provide(:title, @person.first_name) %>
+<div class="row">
+    <aside class="col-md-4">
+        <section class="user_info">
+            <h1>
+                <img src="https://identicon-api.herokuapp.com/<%= @person.username %>/80?format=png" alt="<%= @person.username + '\'s Avatar' %>" class="identicon">
+                <%= @person.username %>
+            </h1>
+        </section>
+    </aside>
+</div>
