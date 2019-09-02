@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
 
-gem 'bundler', '~> 2.0.2'
 # For?
 gem "webpacker"
 # For CSS styling
