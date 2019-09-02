@@ -8,7 +8,7 @@ class PersonTest < ActiveSupport::TestCase
   # end
 
   def setup
-    @person = Person.new(username: "exper", password: "foobarbaz", password_confirmation: "foobarbaz", first_name: "Example", last_name: "Person", birthday: Date.civil(1994, 1, 1), email: "person@example.com", phone_number: 8505459840)
+    @person = Person.new(username: "exper", password: "foobarbaz", password_confirmation: "foobarbaz", first_name: "Example", last_name: "Person", birthday: Date.civil(1994, 1, 1), email: "person@example.com", phone_number: 1505459840)
   end
 
   test "should be valid" do

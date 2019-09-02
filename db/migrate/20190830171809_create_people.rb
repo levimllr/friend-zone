@@ -8,7 +8,7 @@ class CreatePeople < ActiveRecord::Migration[6.0]
       t.string :last_name
       t.date :birthday
       t.string :email
-      t.integer :phone_number
+      t.bigint :phone_number
       
       t.timestamps
     end
