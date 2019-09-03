@@ -1,2 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+michael:
+  first_name: Michael 
+  last_name: Example
+  username: mexample
+  email: michael@example.com
+  birthday: <%= Date.civil(1992, 5, 17) %>
+  phone_number: 7771273891
+  password_digest: <%= Person.digest('password') %>
