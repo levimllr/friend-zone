@@ -15,12 +15,29 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = Person.find(params[:id])
+    find_current_person
+  end
+
+  def edit
+    find_current_person
+  end
+
+  def update
+    find_current_person
+    if @person.update_attributes(person_params)
+      
+    else
+      render 'edit'
+    end
   end
 
   private
 
     def person_params
       params.require(:person).permit(:first_name, :last_name, :phone_number, :birthday, :username, :email, :password, :password_confirmation)
+    end
+
+    def find_current_person
+      @person = Person.find(params[:id])
     end
 end
