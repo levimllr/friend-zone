@@ -24,7 +24,7 @@ class PeopleController < ApplicationController
 
   def update
     find_current_person
-    if @person.update_attributes(person_params)
+    if @person.update(person_params)
       
     else
       render 'edit'

@@ -10,5 +10,6 @@ class PeopleEditTest < ActionDispatch::IntegrationTest
     assert_template 'people/edit'
     patch person_path(@person), params: { person: {first_name: "", last_name: "", birthday: "", phone_number: "", username: "", email: "person@invalid", password: "foo", password_confirmation: "bar" } }
     assert_template "people/edit"
+    assert_select "div.alert", "This form contains 8 errors."
   end
 end
