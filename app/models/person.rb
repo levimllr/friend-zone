@@ -21,7 +21,7 @@ class Person < ApplicationRecord
     validates(:username, presence: true, length: { maximum: 36 })
     # Most of the secure password machinery will be implemented using this single Rails method:
     has_secure_password
-    validates(:password, presence: true, length: { minimum: 8 })
+    validates(:password, presence: true, length: { minimum: 8 }, allow_nil: true)
     validates(:first_name, presence: true)
     validates(:last_name, presence: true)
     validates(:birthday, presence: true)

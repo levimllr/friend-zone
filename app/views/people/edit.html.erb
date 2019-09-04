@@ -1,14 +1,13 @@
 <% provide(:title, 'Edit person') %>
 <% provide(:button_text, 'Save Changes') %>
-<h1>Sign up</h1>
+<h1>Edit person</h1>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <%= render partial: 'form', locals: { url: '/people/' + @person.id.to_s, method: :put } %>
         
-        <div class="identicon_edit">
-            <img src="https://identicon-api.herokuapp.com/<%= @person.username %>/80?format=png" alt="<%= @person.username + '\'s Avatar' %>" class="identicon">
-                <%= @person.username %>
-            <a href="http://gravatar.com/emails" target="_blank">change</a>
-        </div>
+            <div class="gravatar_edit">
+                <%= gravatar_for @person %>
+                <a href="http://gravatar.com/emails" target="_blank">change</a>
+            </div>
     </div>
 </div>

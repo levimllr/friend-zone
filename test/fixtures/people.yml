@@ -8,3 +8,42 @@ michael:
   birthday: <%= Date.civil(1992, 5, 17) %>
   phone_number: 7771273891
   password_digest: <%= Person.digest('password') %>
+  admin: true
+
+archer:
+  first_name: Sterling 
+  last_name: Archer
+  username: sarcher
+  email: duchess@example.gov
+  birthday: <%= Date.civil(1953, 7, 21) %>
+  phone_number: 1234567890
+  password_digest: <%= Person.digest('password') %>
+
+lana:
+  first_name: Lana 
+  last_name: Kane
+  username: lkane
+  email: lakane@example.gov
+  birthday: <%= Date.civil(1923, 2, 1) %>
+  phone_number: 1234567890
+  password_digest: <%= Person.digest('password') %>
+
+malory:
+  first_name: Malory
+  last_name: Kane
+  username: mkane
+  email: mkane@example.com
+  birthday: <%= Date.civil(1979, 9, 11) %>
+  phone_number: 1234567890
+  password_digest: <%= Person.digest('password') %>
+
+<% 50.times do |n| %>
+person_<%= n %>:
+  first_name: Person
+  last_name: <%= n %> 
+  username: <%= "person-#{n}" %> 
+  email: <%= "person-#{n}@example.com" %>
+  birthday: <%= Date.civil(1987, 6, 5) %>
+  phone_number: 1234567890
+  password_digest: <%= Person.digest('password') %>
+<% end %>

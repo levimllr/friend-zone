@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    # byebug
   end
 
   def create
@@ -7,7 +8,7 @@ class SessionsController < ApplicationController
     if @person && @person.authenticate(params[:session][:password])
       log_in @person
       params[:session][:remember_me] == '1' ? remember(@person) : forget(@person)
-      redirect_to @person
+      redirect_back_or @person
     else  
       flash.now[:danger] = 'Invalid email/password combination' # Not quite right!
       render 'new'

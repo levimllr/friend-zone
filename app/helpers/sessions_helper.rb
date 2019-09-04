@@ -19,6 +19,11 @@ module SessionsHelper
         cookies.delete(:remember_token)
     end
 
+    # Retursn true if the given person is the current person
+    def current_person?(person)
+        person == current_person
+    end
+
     # Returns the current logged-in user (if any).
     def current_person
         if (person_id = session[:person_id])
@@ -30,6 +35,17 @@ module SessionsHelper
                 @current_person = person
             end
         end
+    end
+
+    # Redirects to stored location (or to the default)
+    def redirect_back_or(default)
+        redirect_to(session[:forwarding_url] || default)
+        session.delete(:forwarding_url)
+    end
+
+    # Stores the URL trying to be accessed
+    def store_location
+        session[:forwarding_url] = request.original_url if request.get?
     end
 
     # Returns true if the user is logged in, false otherwise.
