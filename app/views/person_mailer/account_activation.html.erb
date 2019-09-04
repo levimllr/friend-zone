@@ -1,0 +1,7 @@
+<h1>Friend Zone</h1>
+
+<p><%= @greeting + ' ' + @person.first_name + '!' %></p>
+
+<p>Welcome to the Friend Zone. Click on the link below to activate your account:</p>
+
+<%= link_to "Activate", edit_account_activation_url(@person.activation_token, email: @person.email) %>

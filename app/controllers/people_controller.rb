@@ -10,9 +10,9 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     if @person.save
-      log_in @person
-      flash[:success] = "Wecome to the Friend Zone!"
-      redirect_to @person
+      PersonMailer.account_activation(@person).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end

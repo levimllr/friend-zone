@@ -51,7 +51,7 @@ num_meet_types = meeting_types.length
 
 # GENERATE PEOPLE WITH ACCOUNTS
 
-Person.create(username: 'beerjeans', password: 'coolrunnings', password_confirmation: 'coolrunnings', first_name: 'Levi', last_name: 'Miller', birthday: Date.civil(1991, 9, 24), email: 'paullevimiller@gmail.com', phone_number: 8054554980, admin: true)
+Person.create(username: 'beerjeans', password: 'coolrunnings', password_confirmation: 'coolrunnings', first_name: 'Levi', last_name: 'Miller', birthday: Date.civil(1991, 9, 24), email: 'paullevimiller@gmail.com', phone_number: 8054554980, admin: true, activated: true, activated_at: Time.zone.now)
 
 10.times do
     firstname = Faker::Name.first_name
@@ -60,7 +60,7 @@ Person.create(username: 'beerjeans', password: 'coolrunnings', password_confirma
     birthday = rand(Date.civil(1920, 1, 1)..Date.civil(2001, 06, 22)).to_date
     password = Faker::Internet.password
 
-    newperson = Person.create(username: Faker::Internet.username(specifier: firstname), password: password, password_confirmation: password, first_name: firstname, last_name: lastname, birthday: birthday, email: Faker::Internet.safe_email(name: firstname), phone_number: phonenumber)
+    newperson = Person.create(username: Faker::Internet.username(specifier: firstname), password: password, password_confirmation: password, first_name: firstname, last_name: lastname, birthday: birthday, email: Faker::Internet.safe_email(name: firstname), phone_number: phonenumber, activated: true, activated_at: Time.zone.now)
 
     love_language_rank = [1, 2, 3, 4, 5].shuffle
 
@@ -75,7 +75,7 @@ end
     phonenumber = Faker::PhoneNumber.phone_number.scan(/\d/).join('').to_i
     birthday = rand(Date.civil(1920, 1, 1)..Date.civil(2001, 06, 22)).to_date
 
-    newperson = Person.create(username: "nu" + "firstname", password: "lastname" + "nu", first_name: firstname, last_name: lastname, birthday: birthday, email: Faker::Internet.safe_email(name: firstname), phone_number: phonenumber)
+    newperson = Person.create(username: "nu" + "firstname", password: "lastname" + "nu", first_name: firstname, last_name: lastname, birthday: birthday, email: Faker::Internet.safe_email(name: firstname), phone_number: phonenumber, activated: true, activated_at: Time.zone.now)
 
     love_language_rank = [1, 2, 3, 4, 5].shuffle
 

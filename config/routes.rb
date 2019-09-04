@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/signup', to: 'people#create'
   resources :people
 
+  resources :account_activation, only: [:edit]
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

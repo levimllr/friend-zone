@@ -9,6 +9,8 @@ michael:
   phone_number: 7771273891
   password_digest: <%= Person.digest('password') %>
   admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 archer:
   first_name: Sterling 
@@ -18,6 +20,8 @@ archer:
   birthday: <%= Date.civil(1953, 7, 21) %>
   phone_number: 1234567890
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 lana:
   first_name: Lana 
@@ -27,6 +31,8 @@ lana:
   birthday: <%= Date.civil(1923, 2, 1) %>
   phone_number: 1234567890
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 malory:
   first_name: Malory
@@ -36,6 +42,8 @@ malory:
   birthday: <%= Date.civil(1979, 9, 11) %>
   phone_number: 1234567890
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 <% 50.times do |n| %>
 person_<%= n %>:
@@ -46,4 +54,6 @@ person_<%= n %>:
   birthday: <%= Date.civil(1987, 6, 5) %>
   phone_number: 1234567890
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 <% end %>
