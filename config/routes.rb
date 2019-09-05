@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'people#create'
   resources :people
 
-  resources :account_activation, only: [:edit]
+  resources :account_activations, only: [:edit]
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
