@@ -39,7 +39,8 @@ class Person < ApplicationRecord
     has_many :people_meetings
     has_many :meetings, through: :people_meetings
 
-    has_many :notes
+    has_many :notes, dependent: :destroy
+    has_many :microposts, dependent: :destroy
 
     has_one :love_language
 

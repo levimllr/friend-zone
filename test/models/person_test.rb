@@ -98,4 +98,12 @@ class PersonTest < ActiveSupport::TestCase
   test "authenticated? should return false for a person with nil digest" do
     assert_not @person.authenticated?(:remember, '')
   end
+
+  test "microposts should be destroyed on person destruction" do
+    @person.save
+    @person.microposts.create!(content: "Lorem fucking ipsum")
+    assert_difference 'Micropost.count', -1 do
+      @person.destroy 
+    end
+  end
 end
