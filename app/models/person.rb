@@ -1,5 +1,5 @@
 class Person < ApplicationRecord
-    attr_accessor :remember_token, :activation_token
+    attr_accessor :remember_token, :activation_token, :reset_token
 
     class << self
         # Returns hash digest of given string
@@ -73,6 +73,22 @@ class Person < ApplicationRecord
     # Sends activation email
     def send_activation_email 
         PersonMailer.account_activation(self).deliver_now
+    end
+
+    # Sets the password reset attributes
+    def create_reset_digest
+        self.reset_token = Person.new_token
+        update_columns(reset_digest: Person.digest(reset_token), reset_sent_at: Time.zone.now)
+    end
+
+    # Sends password reset email
+    def send_password_reset_email
+        PersonMailer.password_reset(self).deliver_now
+    end
+
+    # Returns true if a password reset has expired.
+    def password_reset_expired?
+        reset_sent_at < 2.hours.ago
     end
 
     private
