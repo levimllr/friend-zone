@@ -10,7 +10,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     if @person.save
-      PersonMailer.account_activation(@person).deliver_now
+      @person.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
@@ -19,11 +19,12 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @people = Person.paginate(page: params[:page])
+    @people = Person.where(activated: true).paginate(page: params[:page])
   end
 
   def show
     find_current_person
+    redirect_to root_url and return unless !@person.activated.nil?
   end
 
   def edit

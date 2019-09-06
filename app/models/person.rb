@@ -64,6 +64,17 @@ class Person < ApplicationRecord
         update_attribute(:remember_digest, nil)
     end
 
+    # Activates an account
+    def activate
+        # update_columns allows us to update more than one attribute at a time! 
+        update_columns(activated: true, activated_at: Time.zone.now)
+    end
+
+    # Sends activation email
+    def send_activation_email 
+        PersonMailer.account_activation(self).deliver_now
+    end
+
     private
 
         # Converts email to all lower-case

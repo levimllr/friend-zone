@@ -24,8 +24,9 @@ class PeopleSignupTest < ActionDispatch::IntegrationTest
       post signup_path, params: { person: {first_name: "Example", last_name: "Person", birthday: Date.civil(1994, 12, 30), phone_number: 1234567890, username: "exper", email: "person@valid.com", password: "foobarbaz", password_confirmation: "foobarbaz" } }
     end 
     assert_equal 1, ActionMailer::Base.deliveries.size
-    person = Person.last 
-    assert_equal person.username, "exper"
+    # assigns lets us access instance variables in the corresponding action (Person controller's create action)
+    # assigns method is deprecated in default Rails tests as of Rails 5, but it’s available via the rails-controller-testing gem
+    person = assigns(:person)
     assert_not person.activated?
     # Try to log in before activation.
     log_in_as(person)
@@ -34,7 +35,7 @@ class PeopleSignupTest < ActionDispatch::IntegrationTest
     get edit_account_activation_path("invalid token", email: person.email)
     assert_not is_logged_in?
     # Valid token, wrong email
-    byebug
+    # byebug
     get edit_account_activation_path(person.activation_token, email: 'wrong')
     assert_not is_logged_in?
     # Valid activation token

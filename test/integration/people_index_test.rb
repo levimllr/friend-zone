@@ -11,9 +11,10 @@ class PeopleIndexTest < ActionDispatch::IntegrationTest
     get people_path
     assert_template 'people/index'
     assert_select 'div.pagination'
-    first_page_of_people = Person.paginate(page: 1)
+    first_page_of_people = Person.where(activated: true).paginate(page: 1)
     first_page_of_people.each do |person|
       assert_select 'a[href=?]', person_path(person), text: person.full_name
+      assert_not person.activated.nil?
       unless person == @admin
         assert_select 'a[href=?]', person_path(person), text: 'delete'
       end

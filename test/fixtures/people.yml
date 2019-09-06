@@ -31,8 +31,8 @@ lana:
   birthday: <%= Date.civil(1923, 2, 1) %>
   phone_number: 1234567890
   password_digest: <%= Person.digest('password') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
+  activated: false
+  activated_at: nil
 
 malory:
   first_name: Malory
