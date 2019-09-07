@@ -19,6 +19,10 @@ gem 'rails', '~> 6.0.0'
 # For pagination
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+# Image uploading and association
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'paperclip'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -78,7 +82,8 @@ end
 
 group :production do
   # Use PostgreSQL as the database for deployment on Heroku
-  # gem 'pg'
+  gem 'pg'
+  gem 'fog'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

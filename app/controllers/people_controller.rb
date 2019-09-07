@@ -25,15 +25,7 @@ class PeopleController < ApplicationController
   def show
     find_current_person
     redirect_to root_url and return unless !@person.activated.nil?
-    <div class="col-md-8">
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
-  </div>
+    @microposts = @person.microposts.paginate(page: params[:page])
   end
 
   def edit
@@ -67,15 +59,6 @@ class PeopleController < ApplicationController
     end
 
     # Before filters
-
-    # Confirms a logged-in person
-    def logged_in_person
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
 
     # Confirms the correct person
     def correct_person

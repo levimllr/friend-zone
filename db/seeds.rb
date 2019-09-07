@@ -149,3 +149,11 @@ rand(150..350).times do
         person.notes << Note.create(people_meeting_id: people_meeting.id, title: meeting_note_title, content: Faker::Lorem.sentence(word_count: rand(1..7)))
     end
 end
+
+# GENERATE MICROPOSTS
+
+people = Person.order(:created_at).take(10)
+50.times do
+    content = Faker::Lorem.sentence(5)
+    people.each { |person| person.microposts.create!(content: content) }
+end

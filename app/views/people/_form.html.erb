@@ -1,6 +1,6 @@
 <%= form_for(@person, url: url) do |f| %>
 
-  <%= render 'shared/error_messages' %>
+  <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :first_name %>
   <%= f.text_field :first_name, class: 'form-control' %>
