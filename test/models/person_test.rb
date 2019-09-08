@@ -8,7 +8,10 @@ class PersonTest < ActiveSupport::TestCase
   # end
 
   def setup
-    @person = Person.new(username: "exper", password: "foobarbaz", password_confirmation: "foobarbaz", first_name: "Example", last_name: "Person", birthday: Date.civil(1994, 1, 1), email: "person@example.com", phone_number: 1505459840)
+    @person = Person.new(username: "exper", password: "foobarbaz", 
+      password_confirmation: "foobarbaz", first_name: "Example", 
+      last_name: "Person", birthday: Date.civil(1994, 1, 1), 
+      email: "person@example.com", phone_number: 1505459840)
   end
 
   test "should be valid" do
@@ -105,5 +108,16 @@ class PersonTest < ActiveSupport::TestCase
     assert_difference 'Micropost.count', -1 do
       @person.destroy 
     end
+  end
+
+  test "should befriend and unbefriend a person" do
+    michael = people(:michael)
+    archer = people(:archer)
+    assert_not michael.befriending?(archer)
+    michael.befriend(archer) 
+    assert michael.befriending?(archer)
+    assert archer.befrienders.include?(michael)
+    michael.unbefriend(archer)
+    assert_not michael.befriending?(archer)
   end
 end

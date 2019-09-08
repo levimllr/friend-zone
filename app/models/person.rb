@@ -20,27 +20,41 @@ class Person < ApplicationRecord
     before_create :create_activation_digest
 
     validates(:username, presence: true, length: { maximum: 36 })
-    # Most of the secure password machinery will be implemented using this single Rails method:
+    # Most of secure password machinery implemented using single Rails method:
     has_secure_password
-    validates(:password, presence: true, length: { minimum: 8 }, allow_nil: true)
+    validates(:password, presence: true, 
+        length: { minimum: 8 }, 
+        allow_nil: true)
     validates(:first_name, presence: true)
     validates(:last_name, presence: true)
     validates(:birthday, presence: true)
-    validates(:email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false })
+    validates(:email, presence: true, 
+        length: { maximum: 255 }, 
+        format: { with: VALID_EMAIL_REGEX }, 
+        uniqueness: { case_sensitive: false })
     validates(:phone_number, presence: true)
 
+    # has_many :befriended_persons, foreign_key: :befriender_id, 
+    #     class_name: 'Relationship'
+    # has_many :befriendees, through: :befriended_persons
 
-    has_many :befriended_persons, foreign_key: :befriender_id, class_name: 'Relationship'
-    has_many :befriendees, through: :befriended_persons
-
-    has_many :befriending_persons, foreign_key: :befriendee_id, class_name: 'Relationship'
-    has_many :befrienders, through: :befriending_persons
+    # has_many :befriending_persons, foreign_key: :befriendee_id, 
+    #     class_name: 'Relationship'
+    # has_many :befrienders, through: :befriending_persons
 
     has_many :people_meetings
     has_many :meetings, through: :people_meetings
 
     has_many :notes, dependent: :destroy
+
     has_many :microposts, dependent: :destroy
+    
+    has_many :active_relationships, class_name: "Relationship",
+        foreign_key: "befriender_id", dependent: :destroy
+    has_many :passive_relationships, class_name: "Relationship",
+        foreign_key: "befriended_id", dependent: :destroy
+    has_many :befriending, through: :active_relationships, source: :befriended
+    has_many :befrienders, through: :passive_relationships, source: :befriender
 
     has_one :love_language
 
@@ -96,6 +110,21 @@ class Person < ApplicationRecord
     # See "Following users" for the full implementation.
     def feed
         Micropost.where("person_id = ?", id)
+    end
+
+    # Befriend a person!
+    def befriend(other_person)
+        self.befriending << other_person
+    end
+
+    # Check to see if person is being befriended.
+    def befriending?(other_person)
+        self.befriending.include?(other_person)
+    end
+
+    # Unbefriend a person :(
+    def unbefriend(other_person)
+        self.befriending.delete(other_person)
     end
 
     private

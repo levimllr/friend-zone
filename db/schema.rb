@@ -88,10 +88,15 @@ ActiveRecord::Schema.define(version: 2019_09_06_232112) do
 
   create_table "relationships", force: :cascade do |t|
     t.integer "befriender_id"
-    t.integer "befriendee_id"
+    t.integer "befriended_id"
     t.string "reln_type"
     t.date "start"
     t.string "quality"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["befriended_id"], name: "index_relationships_on_befriended_id"
+    t.index ["befriender_id", "befriended_id"], name: "index_relationships_on_befriender_id_and_befriended_id", unique: true
+    t.index ["befriender_id"], name: "index_relationships_on_befriender_id"
   end
 
   add_foreign_key "microposts", "people"
