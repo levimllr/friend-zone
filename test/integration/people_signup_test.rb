@@ -10,7 +10,9 @@ class PeopleSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_no_difference 'Person.count' do
       assert_select 'form[action="/signup"]'
-      post signup_path, params: { person: {first_name: "", last_name: "", birthday: "", phone_number: "", username: "", email: "person@invalid", password: "foo", password_confirmation: "bar" } }
+      post signup_path, params: { person: {first_name: "", last_name: "",
+         birthday: "", phone_number: "", username: "", email: "person@invalid",
+          password: "foo", password_confirmation: "bar" } }
     end
     assert_template 'people/new'
     assert_select 'div#error_explanation'

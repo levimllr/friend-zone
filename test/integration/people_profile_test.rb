@@ -20,4 +20,11 @@ class PeopleProfileTest < ActionDispatch::IntegrationTest
       assert_match micropost.content, response.body
     end
   end
+
+  test "befriender/befriending stats display" do
+    log_in_as(@person)
+    get root_path
+    assert_template 'static_pages/home'
+    assert_select 'div.stats'
+  end
 end

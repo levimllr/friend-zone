@@ -1,0 +1,15 @@
+<% @person ||= current_person %>
+<div class="stats">
+  <a href="<%= befriending_person_path(@person) %>">
+    <strong id="befriending" class="stat">
+      <%= @person.befriending.count %>
+    </strong>
+    befriending
+  </a>
+  <a href="<%= befrienders_person_path(@person) %>">
+    <strong id="befrienders" class="stat">
+      <%= @person.befrienders.count %>
+    </strong>
+    befrienders
+  </a>
+</div>

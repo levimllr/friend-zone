@@ -50,9 +50,11 @@ touch_4 = 'I like being touched but often feel a little uncomfortable with it.'
 touch_5 = 'Don\'t touch me.'
 touch_examples = [touch_1, touch_2, touch_3, touch_4, touch_5]
 
-relationship_types = ['family', 'best friend', 'friend', 'acquaintance', 
-    'professional', 'intimate', 'mentor', 'neighbor']
-num_reln_types = relationship_types.length
+reln_types = ['family', 'best friend', 'friend', 'acquaintance', 'professional',
+     'intimate', 'mentor', 'neighbor', 'frenemy', 'enemy', 'friend-of-a-friend']
+num_reln_types = reln_types.length
+reln_qualities = ['A', 'B', 'C', 'D', 'F']
+num_reln_qualities = reln_qualities.length
 
 meeting_types = ['1:1 hangout', 'group get-together', 'event', 'voice call', 
     'video call', 'text chat', 'email', 'letter']
@@ -129,22 +131,34 @@ numpeople = Person.all.length
 
 # GENERATE RELATIONSHIPS
 
-# rand(150..350).times do
-#     befriender = Person.all[rand(0...numpeople)]
-#     befriended = Person.all[rand(0...numpeople)]
+rand(150..350).times do
+    person = Person.all[rand(0...numpeople)]
+    friend = Person.all[rand(0...numpeople)]
 
-#     start_date = rand(befriender.birthday..Date.today).to_date
+    start_date = rand(person.birthday..Date.today).to_date
+    reln_type = reln_types[rand(0...num_reln_types)]
+    reln_quality = reln_qualities[rand(0...num_reln_qualities)]
     
-#     if befriender == befriended || befriender.befriendeds.include?(befriended)
-#         befriended = Person.all[rand(0...numpeople)]
-#     end
-#     if !befriender.befriendeds.include?(befriended)
-#         Relationship.create(befriender_id: befriender.id, 
-#             befriended_id: befriended.id, 
-#             reln_type: relationship_types[rand(0...num_reln_types)], 
-#             start: start_date)
-#     end
-# end
+    if person == friend || person.befriending.include?(friend)
+        friend = Person.all[rand(0...numpeople)]
+    end
+    if !person.befriending.include?(friend)
+        person.befriend(friend)
+        new_person_reln = Relationship.all.last.update(
+            reln_type: reln_type,
+            quality: reln_quality,
+            start: start_date
+        )
+        if !friend.befriending.include?(person)
+            friend.befriend(person)
+            new_friend_reln = Relationship.all.last.update(
+                reln_type: reln_type,
+                quality: reln_quality,
+                start: start_date
+            )
+        end
+    end
+end
 
 # GENERATE MEETINGS
 

@@ -1,0 +1,15 @@
+one:
+  befriender: michael
+  befriended: lana
+
+two:
+  befriender: michael
+  befriended: malory
+
+three:
+  befriender: lana
+  befriended: michael
+
+four:
+  befriender: archer
+  befriended: michael

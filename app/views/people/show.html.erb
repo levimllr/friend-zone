@@ -7,8 +7,12 @@
                 <%= @person.username %>
             </h1>
         </section>
+        <section class="stats">
+            <%= render 'shared/stats' %>
+        </section>
     </aside>
     <div class="col-md-8">
+        <%= render 'befriend_form' if logged_in? %>
         <% if @person.microposts.any? %>
             <h3>Microposts (<%= @person.microposts.count %>)</h3>
             <ol class="microposts">

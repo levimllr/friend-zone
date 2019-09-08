@@ -55,4 +55,14 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to root_url
   end
+
+  test "should redirect befriending when not logged in" do
+    get befriending_person_path(@person)
+    assert_redirected_to login_url
+  end
+
+  test "should redirect befrienders when not logged in" do
+    get befrienders_person_path(@person)
+    assert_redirected_to login_url
+  end
 end

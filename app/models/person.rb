@@ -106,10 +106,12 @@ class Person < ApplicationRecord
         reset_sent_at < 2.hours.ago
     end
 
-    # Defines a proto-feed
-    # See "Following users" for the full implementation.
+    # Returns a person's status feed.
     def feed
-        Micropost.where("person_id = ?", id)
+        befriending_ids = "SELECT befriended_id FROM relationships
+                           WHERE befriender_id = :person_id"
+        Micropost.where("person_id IN (#{befriending_ids}) 
+            OR person_id = :person_id", person_id: self.id)
     end
 
     # Befriend a person!

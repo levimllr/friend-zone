@@ -120,4 +120,22 @@ class PersonTest < ActiveSupport::TestCase
     michael.unbefriend(archer)
     assert_not michael.befriending?(archer)
   end
+
+  test "feed should have the right posts" do
+    michael = people(:michael)
+    archer = people(:archer)
+    lana = people(:lana)
+    # Posts from befriended user
+    lana.microposts.each do |post_befriending|
+      assert michael.feed.include?(post_befriending)
+    end
+    # Posts from self
+    michael.microposts.each do |post_self|
+      assert michael.feed.include?(post_self)
+    end
+    # Posts from unbefriended user
+    archer.microposts.each do |post_unbefriended|
+      assert_not michael.feed.include?(post_unbefriended)
+    end
+  end
 end
