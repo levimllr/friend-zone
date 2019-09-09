@@ -39,6 +39,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# To support AWS
+gem 'fog'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -81,9 +84,7 @@ group :test do
 end
 
 group :production do
-  # Use PostgreSQL as the database for deployment on Heroku
-  gem 'pg'
-  gem 'fog'
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
