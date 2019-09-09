@@ -40,9 +40,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # To support AWS
-gem 'fog'
 gem 'fog-aws'
-gem 'fog-core'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
