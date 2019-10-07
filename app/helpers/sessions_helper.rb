@@ -19,7 +19,7 @@ module SessionsHelper
         cookies.delete(:remember_token)
     end
 
-    # Retursn true if the given person is the current person
+    # Returns true if the given person is the current person
     def current_person?(person)
         person == current_person
     end
