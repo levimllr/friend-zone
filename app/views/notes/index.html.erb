@@ -1,0 +1,10 @@
+<% provide(:title, 'All notes') %>
+<h1>All notes</h1>
+
+<%= will_paginate %>
+
+<ul class="notes">
+    <%= render @notes %>
+</ul>
+
+<%= will_paginate %>

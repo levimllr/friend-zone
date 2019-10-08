@@ -7,11 +7,10 @@ class MicropostsController < ApplicationController
     @micropost = current_person.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = 'Micropost created!'
-      redirect_to root_url
     else
-      @feed_items = []
-      render 'static_pages/home'
+      flash[:danger] = 'Missing content for micropost!'
     end
+    redirect_to root_url
   end
 
   def destroy

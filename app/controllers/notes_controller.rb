@@ -8,11 +8,18 @@ class NotesController < ApplicationController
     @note = current_person.notes.build(note_params)
     if @note.save
       flash[:success] = 'Note created!'
-      redirect_to root_url
+      # redirect_to root_url
     else
-      @notes = []
-      render 'static_pages/home'
+      # byebug
+      # @notes = []
+      # render 'static_pages/home'
+      flash[:danger] = 'Note not created. Missing title and/or content!'
     end
+    redirect_to root_url
+  end
+
+  def index
+    @notes = Note.where(person_id: current_person.id).order(created_at: :desc).paginate(page: params[:page])
   end
 
   private

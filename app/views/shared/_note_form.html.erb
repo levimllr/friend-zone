@@ -1,17 +1,11 @@
 <%= form_for(@note) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <%= hidden_field_tag(:person_id, current_person.id) %>
-  <%= collection_select(:note, :friend_id, current_person.befriending, :id, :full_name) %>
-  <%= collection_select(:note, :people_meeting_id, current_person.meetings, :id, :stringify) %>
+  <%= f.hidden_field :person_id, value: current_person.id %>
+  <%= collection_select(:note, :friend_id, current_person.befriending, :id, :full_name, prompt: "Friend (optional)") %>
+  <%= collection_select(:note, :people_meeting_id, current_person.meetings, :id, :stringify, prompt: "Meeting (optional)") %>
   <%= f.text_field :title, placeholder: "Title" %>
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose new note..." %>
   </div>
-  <%= f.submit "Save", class: "btn btn-primary" %>
+  <%= f.submit "Note", class: "btn btn-primary" %>
 <% end %>
-
-      <%# t.integer :person_id
-      t.integer :friend_id
-      t.integer :people_meeting_id
-      
-      t.string :title %>
