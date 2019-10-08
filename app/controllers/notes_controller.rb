@@ -20,6 +20,6 @@ class NotesController < ApplicationController
   # Only allow note content
   def note_params
     # byebug
-    params.require(:note).permit(:content)
+    params.require(:note).permit(:content, :person_id, :friend_id, :people_meeting_id, :title)
   end
 end
