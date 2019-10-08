@@ -6,12 +6,21 @@
         <section class="stats">
             <%= render 'shared/stats' %>
         </section>
+    </aside>
+    <div class="col-md-4">
+        <h3>Personal Note</h3>
+        <section class="note_form">
+            <%= render 'shared/note_form' %>
+        </section>
+        <h3>Past Notes</h3>
+            <%= render 'shared/notes' %>
+    </div>
+    <div class="col-md-4">
+        <h3>Public Post</h3>
         <section class="micropost_form">
             <%= render 'shared/micropost_form' %>
         </section>
-    </aside>
-    <div class="col-md-8">
-        <h3>Micropost Feed</h3>
+        <h3>Post Feed</h3>
         <%= render 'shared/feed' %>
     </div>
 </div>

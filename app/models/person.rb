@@ -114,6 +114,11 @@ class Person < ApplicationRecord
             OR person_id = :person_id", person_id: self.id)
     end
 
+    # Returns a person's notes.
+    def notes
+        Note.where("person_id = #{self.id}")
+    end
+
     # Befriend a person!
     def befriend(other_person)
         self.befriending << other_person
