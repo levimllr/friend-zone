@@ -1,0 +1,14 @@
+<%= form_for(@new_meeting) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.fields_for current_person.befriending do |pm| %>
+    <% current_person.befriending.each do |friend| %>
+      <%= pm.label "#{friend.full_name}" %>
+      <%= pm.check_box(:ids, options = {}, checked_value = "#{friend.id}", unchecked_value = nil) %>
+    <% end %>
+  <% end %>
+  <%= f.select :meeting_type, options_for_select([["Select One", ""], '1:1 hangout', 'group get-together', 'event', 'voice call', 
+    'video call', 'text chat', 'email', 'letter']) %>
+  <%= f.text_field :location, placeholder: "Location" %>
+  <%= f.datetime_field :when, placeholder: "Date" %>
+  <%= f.submit "New Meeting", class: "btn btn-primary" %>
+<% end %>

@@ -19,4 +19,10 @@ class Note < ApplicationRecord
       "Personal."
     end
   end
+
+  def meeting
+    if people_meeting_id
+      PeopleMeeting.find(people_meeting_id).meeting
+    end
+  end
 end

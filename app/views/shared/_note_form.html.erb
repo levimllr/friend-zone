@@ -2,7 +2,7 @@
   <%= render 'shared/error_messages', object: f.object %>
   <%= f.hidden_field :person_id, value: current_person.id %>
   <%= collection_select(:note, :friend_id, current_person.befriending, :id, :full_name, prompt: "Friend (optional)") %>
-  <%= collection_select(:note, :people_meeting_id, current_person.meetings, :id, :stringify, prompt: "Meeting (optional)") %>
+  <%= collection_select(:note, :people_meeting_id, current_person.meetings, :id, :stringify_short, prompt: "Meeting (optional)") %>
   <%= f.text_field :title, placeholder: "Title" %>
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose new note..." %>
