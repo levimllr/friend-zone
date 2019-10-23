@@ -1,5 +1,7 @@
 <li id="meeting-<%= meeting.id %>">
   <span class="timestamp">
-    <%= meeting.stringify %>.
+    <%= meeting.stringify %>. 
+    <%= link_to "Edit", edit_meeting_path(meeting) %>. 
+    <%= link_to "Delete", meeting_path(meeting), method: :delete %>.
   </span>
 </li>

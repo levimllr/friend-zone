@@ -1,14 +1,17 @@
 <%= form_for(@new_meeting) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <%= f.fields_for current_person.befriending do |pm| %>
-    <% current_person.befriending.each do |friend| %>
-      <%= pm.label "#{friend.full_name}" %>
-      <%= pm.check_box(:ids, options = {}, checked_value = "#{friend.id}", unchecked_value = nil) %>
-    <% end %>
-  <% end %>
+  <%= f.hidden_field :person_ids, multiple: true, value: current_person.id %>
+  <%= f.collection_check_boxes :person_ids, current_person.befriending, :id, :full_name %>
   <%= f.select :meeting_type, options_for_select([["Select One", ""], '1:1 hangout', 'group get-together', 'event', 'voice call', 
     'video call', 'text chat', 'email', 'letter']) %>
   <%= f.text_field :location, placeholder: "Location" %>
   <%= f.datetime_field :when, placeholder: "Date" %>
-  <%= f.submit "New Meeting", class: "btn btn-primary" %>
+  <%= f.submit "Submit Meeting", class: "btn btn-primary" %>
 <% end %>
+
+<%# <%= f.collection_check_boxes :people_ids, @new_meeting.people.build do |pm| %>
+    <%# current_person.befriending.each do |friend| %>
+      <%#= pm.label "#{friend.full_name}" %>
+      <%#= pm.check_box(:id, options = {}, checked_value = "#{friend.id}", unchecked_value = nil) %>
+    <%# end %>
+  <%# end %>
