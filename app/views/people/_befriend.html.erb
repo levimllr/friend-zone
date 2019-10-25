@@ -1,4 +1,10 @@
-<%= form_for(current_person.active_relationships.build, remote: true) do |f| %>
-    <div><%= hidden_field_tag :befriended_id, @person.id %></div>
+<%= form_for(Relationship.new, remote: true) do |f| %>
+    <div><%= f.hidden_field :befriender_id, value: current_person.id %></div>
+    <div><%= f.hidden_field :befriended_id, value: @person.id %></div>
+    <div><%= f.hidden_field :reln_type, value: "acquaintance" %></div>
+    <div><%= f.hidden_field :quality, value: "D" %></div>
+    <div><%= f.hidden_field :start, value: DateTime.now.to_date %></div>
     <%= f.submit "Befriend", class: "btn btn-primary" %>
 <% end %>
+
+<%# current_person.active_relationships.build %>

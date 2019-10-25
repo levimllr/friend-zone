@@ -5,6 +5,10 @@
             <h1>
                 <%= gravatar_for @person %>
                 <%= @person.username %>
+                <br>
+                <% if current_person.befriending?(@person) %>
+                    <%= current_person.active_relationships.find_by(befriended_id: @person.id).stringify_short %>
+                <% end %>
             </h1>
         </section>
         <section class="stats">

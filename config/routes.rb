@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :people do
-    member do 
+    member do
       get :befriending, :befrienders
     end
   end
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :meetings
   resources :microposts, only: [:create, :destroy]
   resources :notes
-  resources :relationships, only: [:create, :destroy]
+  resources :relationships
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   

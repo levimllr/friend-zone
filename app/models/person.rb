@@ -120,8 +120,9 @@ class Person < ApplicationRecord
     end
 
     # Befriend a person!
-    def befriend(other_person)
-        self.befriending << other_person
+    def befriend(reln_params)
+        Relationship.create(reln_params)
+        # self.befriending << other_person
     end
 
     # Check to see if person is being befriended.

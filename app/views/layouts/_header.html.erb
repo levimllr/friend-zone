@@ -4,9 +4,9 @@
         <nav>
             <ul class="nav navbar-nav navbar-right">
                 <li><%= link_to "Home", root_path %></li>
-                <li><%= link_to "Help", help_path %></li>
                 <% if logged_in? %>
                     <li><%= link_to "People", people_path %></li>
+                    <li><%= link_to "Relationships", relationships_path %></li>
                     <li><%= link_to "Meetings", meetings_path %></li>
                     <li><%= link_to "Notes", notes_path %></li>
                     <li class="dropdown">

@@ -138,32 +138,40 @@ rand(150..350).times do
     start_date = rand(person.birthday..Date.today).to_date
     reln_type = reln_types[rand(0...num_reln_types)]
     reln_quality = reln_qualities[rand(0...num_reln_qualities)]
+    reln_hash = {
+        befriender_id: person.id,
+        befriended_id: friend.id,
+        start: start_date,
+        reln_type: reln_type,
+        quality: reln_quality
+    }
     
     if person == friend || person.befriending.include?(friend)
         friend = Person.all[rand(0...numpeople)]
+        reln_hash[:befriended_id] = friend.id
     end
     if !person.befriending.include?(friend)
-        person.befriend(friend)
-        new_person_reln = Relationship.all.last.update(
-            reln_type: reln_type,
-            quality: reln_quality,
-            start: start_date
-        )
-        if !friend.befriending.include?(person)
-            friend.befriend(person)
-            new_friend_reln = Relationship.all.last.update(
-                reln_type: reln_type,
-                quality: reln_quality,
-                start: start_date
-            )
-        end
+        person.befriend(reln_hash)
+        # new_person_reln = Relationship.all.last.update(
+        #     reln_type: reln_type,
+        #     quality: reln_quality,
+        #     start: start_date
+        # )
+        # if !friend.befriending.include?(friend)
+        #     friend.befriend(reln_hash)
+        #     new_friend_reln = Relationship.all.last.update(
+        #         reln_type: reln_type,
+        #         quality: reln_quality,
+        #         start: start_date
+        #     )
+        # end
     end
 end
 
 # GENERATE MEETINGS
 
 rand(150..350).times do
-    person = Person.all[rand(0...numpeople)]
+    person = Person.all.sample
 
     new_meeting = Meeting.create(when: rand(Date.civil(2014, 1, 1)..Date.today), location: Faker::Address.community, meeting_type: meeting_types[rand(0...num_meet_types)])
 
@@ -191,23 +199,30 @@ nummeeting = Meeting.all.length
 # GENERATE NOTES
 
 rand(150..350).times do
-    person = Person.all[rand(0...numpeople)]
+    person = Person.all.sample
 
     note_or_meeting_selector = rand(1..2)
     if note_or_meeting_selector == 1
-        friend = Person.all[rand(0...numpeople)]
+        friend = Person.all.sample
         if friend == person
-            friend = Person.all[rand(0...numpeople)]
+            friend = Person.all.sample
         end
         friend_note_title = friend.first_name + Faker::Lorem.word
-        person.notes << Note.create(
+        # binding.pry
+        Note.create(
+            person_id: person.id,
             friend_id: friend.id, 
             title: friend_note_title, 
             content: Faker::Lorem.sentence(word_count: rand(1..7)))
     elsif note_or_meeting_selector == 2
-        people_meeting = PeopleMeeting.all[rand(0...nummeeting)]
+        people_meeting = person.people_meetings.sample
+        if people_meeting == nil 
+            next
+        end
         meeting_note_title = people_meeting.meeting.location + Faker::Lorem.word
-        person.notes << Note.create(
+        # binding.pry
+        Note.create(
+            person_id: person.id,
             people_meeting_id: people_meeting.id, 
             title: meeting_note_title, 
             content: Faker::Lorem.sentence(word_count: rand(1..7)))

@@ -1,0 +1,7 @@
+<li id="relationship-<%= relationship.id %>">
+  <span class="timestamp">
+    <%= relationship.stringify %>. 
+    <%= link_to "Change", edit_relationship_path(relationship) %>. 
+    <%= link_to "End", relationship_path(relationship), method: :delete %>.
+  </span>
+</li>
